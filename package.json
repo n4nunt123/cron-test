@@ -2,6 +2,11 @@
   "name": "cron-test",
   "dependencies": {
     "cron": "^4.3.1",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongo-models": "^3.0.4"
+  },
+  "scripts": {
+    "dev": "nodemon src/server/index.js | bunyan -j"
   }
 }

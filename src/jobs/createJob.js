@@ -1,13 +1,18 @@
 const { CronJob } = require('cron');
 const {
   name, cronTime, runOnInit, timeZone
-} = require('../config');
+} = require('../../config');
 
-const createCronJob = () => {
+const createCronJob = (services) => {
+  const { basicService } = services;
   let cronJob;
   const jobName = name;
+
   try {
-    const onTick = () => console.log('hello world');
+    const onTick = async () => {
+      await basicService.getUserMember();
+      await basicService.getNonUserMember();
+    }
 
     cronJob = new CronJob(
       cronTime,
