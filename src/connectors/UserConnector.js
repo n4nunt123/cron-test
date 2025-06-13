@@ -1,6 +1,6 @@
 class userConnector {
-  constructor(db) {
-    this.db = db;
+  constructor(options) {
+    this.db = options.db;
   }
 
   async getAllUsers() {

@@ -16,7 +16,7 @@ const createConnectionDb = async (config) => {
   try {
     await MongoModels.connect({ uri, db: databaseName }, { useUnifiedTopology: true });
 
-    const userConnector = new UserConnector(User);
+    const userConnector = new UserConnector({ db: User });
 
     return {
       userConnector
