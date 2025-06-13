@@ -1,9 +1,7 @@
 const { CronJob } = require('cron');
-const {
-  name, cronTime, runOnInit, timeZone
-} = require('../../config');
 
-const createCronJob = (services) => {
+const createCronJob = (services, config) => {
+  const { name, cronTime, runOnInit, timeZone } = config;
   const { basicService } = services;
   let cronJob;
   const jobName = name;
