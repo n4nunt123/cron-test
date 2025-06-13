@@ -1,5 +1,11 @@
 const userData = require('../data/example-data.json');
 
+/**
+ * BasicService class
+ * options: {
+ *   userConnector: UserConnector instance
+ * }
+ */
 class BasicService {
   constructor(options) {
     Object.assign(this, options);
@@ -7,7 +13,8 @@ class BasicService {
 
   async getUserMember() {
     try {
-      const memberUsers = userData.users.filter((user) =>user.isMember === true);
+      const users = await this.userConnector.getAllUsers();
+      const memberUsers = users.filter((user) =>user.isMember === true);
       console.log(memberUsers);
       console.log(`Total user with member are ${memberUsers}`)
     } catch (error) {
@@ -18,7 +25,8 @@ class BasicService {
 
   async getNonUserMember() {
     try {
-      const nonMemberUsers = userData.users.filter((user) =>user.isMember !== true);
+      const users = await this.userConnector.getAllUsers();
+      const nonMemberUsers = users.filter((user) =>user.isMember !== true);
       console.log(nonMemberUsers);
       console.log(`Total user with non member are ${nonMemberUsers}`)
     } catch (error) {

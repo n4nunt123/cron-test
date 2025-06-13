@@ -1,6 +1,7 @@
 const MongoModels = require('mongo-models');
 
 const { User, ArchivedUser } = require('./modelFactories');
+const { UserConnector }  = require('../connectors');
 
 const createConnectionDb = async (config) => {
   const {
@@ -13,14 +14,19 @@ const createConnectionDb = async (config) => {
   }
 
   try {
+    console.log(`[CRON] Connecting to database ${uri}`);
     await MongoModels.connect({ uri, db: databaseName }, { useUnifiedTopology: true });
+    console.log('[CRON] Connection to database is success');
 
-    const models = [User, ArchivedUser];
+    const userConnector = new UserConnector({ db: User });
 
-    return { models, databaseClient: MongoModels };
+    return {
+      userConnector
+    };
   } catch (error) {
     console.log('Something when error when creating connection to database');
-    console.error(error);   
+    console.error(error);
+    throw error;
   }
 };
 
