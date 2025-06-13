@@ -14,7 +14,9 @@ const createConnectionDb = async (config) => {
   }
 
   try {
+    console.log(`[CRON] Connecting to database ${uri}`);
     await MongoModels.connect({ uri, db: databaseName }, { useUnifiedTopology: true });
+    console.log('[CRON] Connection to database is success');
 
     const userConnector = new UserConnector({ db: User });
 

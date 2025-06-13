@@ -1,6 +1,12 @@
+/**
+ * User Connector
+ * options: {
+ *   db: Database instance for user operations
+ * }
+ */
 class userConnector {
   constructor(options) {
-    this.db = options.db;
+    Object.assign(this, options);
   }
 
   async getAllUsers() {
