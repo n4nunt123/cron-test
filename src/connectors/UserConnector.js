@@ -12,6 +12,16 @@ class userConnector {
       throw error;
     }
   }
+
+  async getUserById(userId) {
+    try {
+      const user = await this.db.findOne({ id: userId });
+      return user;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = userConnector;
