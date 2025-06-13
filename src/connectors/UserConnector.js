@@ -22,6 +22,16 @@ class userConnector {
       throw error;
     }
   }
+
+  async createUser(userData) {
+    try {
+      const result = await this.db.insertOne(userData);
+      return result.ops[0];
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = userConnector;
