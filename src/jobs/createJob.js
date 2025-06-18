@@ -8,8 +8,8 @@ const createCronJob = (services, config) => {
 
   try {
     const onTick = async () => {
-      await basicService.getUserMember();
-      await basicService.getNonUserMember();
+      console.log(`[CRON] processing users for job ${jobName}`);
+      await basicService.processUsers();
     }
 
     cronJob = new CronJob(

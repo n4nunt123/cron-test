@@ -2,16 +2,15 @@ const userData = require('../data/example-data.json');
 
 /**
  * BasicService class
- * options: {
- *   userConnector: UserConnector instance
- * }
+ * @property {UserConnector} userConnector - Connector for user operations
+ * @property {UserArchiveConnector} userArchiveConnector - Connector for user archive operations
  */
 class BasicService {
   constructor(options) {
     Object.assign(this, options);
   }
 
-  async getUserMember() {
+  async _getUserMember() {
     try {
       const users = await this.userConnector.getAllUsers();
       const memberUsers = users.filter((user) =>user.isMember === true);
@@ -23,7 +22,7 @@ class BasicService {
     }
   }
 
-  async getNonUserMember() {
+  async _getNonUserMember() {
     try {
       const users = await this.userConnector.getAllUsers();
       const nonMemberUsers = users.filter((user) =>user.isMember !== true);
@@ -32,6 +31,14 @@ class BasicService {
     } catch (error) {
       console.log('Error when get data user');
       console.error(error);
+    }
+  }
+
+  async processUsers() {
+    try {
+      
+    } catch (error) {
+      
     }
   }
 }
