@@ -34,9 +34,40 @@ class BasicService {
     }
   }
 
-  async processUsers() {
+  async _archiveUser() {
     try {
       
+    } catch (error) {
+      console.log('Error when archiving user');
+      console.error(error);
+    }
+  }
+
+  async processUsers() {
+    try {
+      const today = new Date();
+      const todayUTC = Date.UTC(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+      );
+      const users = await this.userConnector.getAllUsers();
+
+      await users.reduce(async (_, user) => {
+        const { expiredAt, isMember, id } = user;
+        const expiredDate = new Date(user);
+        const expiredDateUTC = Date.UTC(
+          expiredDate.getFullYear(),
+          expiredDate.getMonth(),
+          expiredDate.getDate()
+        );
+        const diffInMs = todayUTC - expiredDateUTC;
+        const isExpired = diffInMs > 0;
+
+        if (isExpired && isMember) {
+          const archivedUser = await this.userArchiveConnector.getUserById(id);
+        }
+      })
     } catch (error) {
       
     }
