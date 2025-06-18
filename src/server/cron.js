@@ -4,8 +4,8 @@ const { BasicService } = require('../services');
 const { createConnectionDb } = require('../factories');
 
 const cron = async () => {
-  const { userConnector } = await createConnectionDb(config);
-  const basicService = new BasicService({ userConnector, config });
+  const { userConnector, userArchiveConnector } = await createConnectionDb(config);
+  const basicService = new BasicService({ userConnector, userArchiveConnector, config });
 
   const basicJob = createBasicJob({ basicService, config });
 
