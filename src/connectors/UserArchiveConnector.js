@@ -1,10 +1,10 @@
 /**
- * User Connector
+ * User Archive Connector
  * options: {
- *   db: Database instance for user operations
+ *   db: Database instance for user archive operations
  * }
  */
-class userConnector {
+class userArchiveConnector {
   constructor(options) {
     Object.assign(this, options);
   }
@@ -29,9 +29,18 @@ class userConnector {
     }
   }
 
-  async createUser(userData) {
+  async archiveUsers(users) {
     try {
-      await this.db.insertOne(userData);
+      await this.db.insertMany(users);
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  }
+
+  async archiveUser(users) {
+    try {
+      await this.db.insertOne(users);
     } catch (error) {
       console.error('Error creating user:', error);
       throw error;
@@ -39,4 +48,4 @@ class userConnector {
   }
 }
 
-module.exports = userConnector;
+module.exports = userArchiveConnector;
