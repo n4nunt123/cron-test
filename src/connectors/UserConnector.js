@@ -31,8 +31,7 @@ class userConnector {
 
   async createUser(userData) {
     try {
-      const result = await this.db.insertOne(userData);
-      return result.ops[0];
+      await this.db.insertOne(userData);
     } catch (error) {
       console.error('Error creating user:', error);
       throw error;
