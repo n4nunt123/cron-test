@@ -34,9 +34,20 @@ class BasicService {
     }
   }
 
-  async _archiveUser() {
+  async _getArchiveUser(user) {
+    const { id, name, email } = user;
     try {
-      
+      console.log('get archive user by id', id);
+      const archivedUser = await this.userArchiveConnector.getUserById(id);
+
+      if (!archivedUser) {
+        console.log(`archive user with email ${email} and name ${name}`);
+        await this.userArchiveConnector.archiveUser({
+          userId: archivedUser.id,
+          name: archivedUser.name,
+          email: archivedUser.email
+        });
+      }
     } catch (error) {
       console.log('Error when archiving user');
       console.error(error);
@@ -65,11 +76,12 @@ class BasicService {
         const isExpired = diffInMs > 0;
 
         if (isExpired && isMember) {
-          const archivedUser = await this.userArchiveConnector.getUserById(id);
+          this._getArchiveUser(user);
         }
       })
     } catch (error) {
-      
+      console.log('Error when processing users');
+      console.error(error);
     }
   }
 }

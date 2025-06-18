@@ -37,6 +37,15 @@ class userArchiveConnector {
       throw error;
     }
   }
+
+  async archiveUser(users) {
+    try {
+      await this.db.insertOne(users);
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = userArchiveConnector;
